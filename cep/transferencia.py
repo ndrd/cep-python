@@ -30,9 +30,10 @@ class Transferencia:
         receptor: str,
         cuenta: str,
         monto: float,
+        tipo_criterio: str
     ):
         client = cls._validar(
-            fecha, clave_rastreo, emisor, receptor, cuenta, monto
+            fecha, clave_rastreo, emisor, receptor, cuenta, monto, tipo_criterio
         )
         if not client:
             return None
@@ -84,6 +85,7 @@ class Transferencia:
         receptor: str,
         cuenta: str,
         monto: float,
+        tipo_criterio: str
     ) -> Optional[Client]:
         assert emisor in clabe.BANKS.values()
         assert receptor in clabe.BANKS.values()
@@ -95,6 +97,7 @@ class Transferencia:
             receptor=receptor,
             cuenta=cuenta,
             monto=monto,
+            tipoCriterio=tipo_criterio,
         )
         resp = client.post('/valida.do', request_body)
         if b'no encontrada' in resp:
